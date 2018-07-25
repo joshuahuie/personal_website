@@ -1,18 +1,18 @@
 import React from "react";
+import Helmet from "react-helmet";
 
 export default function Template({
-  data, // this prop will be injected by the GraphQL query below.
+  data 
 }) {
-  const { markdownRemark } = data; // data.markdownRemark holds our post data
-  const { frontmatter, html } = markdownRemark;
+  const post = data.markdownRemark; 
   return (
     <div className="blog-post-container">
+     <Helmet title={`CodeStack - ${post.frontmatter.title}`} />
       <div className="blog-post">
-        <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
+        <h1>{post.frontmatter.title}</h1>
         <div
           className="blog-post-content"
-          dangerouslySetInnerHTML={{ __html: html }}
+          dangerouslySetInnerHTML={{ __html: post.html }}
         />
       </div>
     </div>
@@ -30,4 +30,5 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`
+;
